@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Clonando el repositorio...'
-                git branch: 'main', url: 'https://github.com/tokyle/<repo>.git' // Cambia con tu URL
+                git branch: 'main', url: 'https://github.com/TokyoF/discovery-server-taskflow.git' // Cambia con tu URL
             }
         }
         stage('Build') {
