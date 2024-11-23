@@ -13,21 +13,21 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Construyendo el proyecto con Maven...'
-                sh './mvnw clean package -DskipTests' // Usa sh para Linux/Mac, bat para Windows
+                bat './mvnw clean package -DskipTests' // Usa sh para Linux/Mac, bat para Windows
             }
         }
         stage('Docker Build') {
             steps {
                 echo 'Construyendo la imagen Docker...'
-                sh "docker build -t ${DOCKER_IMAGE} ." // Construye la imagen
+                bat "docker build -t ${DOCKER_IMAGE} ." // Construye la imagen
             }
         }
         stage('Docker Push') {
             steps {
                 echo 'Subiendo la imagen a Docker Hub...'
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    sh "docker push ${DOCKER_IMAGE}" // Sube la imagen a Docker Hub
+                    bat "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    bat "docker push ${DOCKER_IMAGE}" // Sube la imagen a Docker Hub
                 }
             }
         }
